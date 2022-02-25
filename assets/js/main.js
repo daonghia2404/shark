@@ -27,24 +27,50 @@ const owlCarousel = {
   init: function () {
     this.setupCardsCarousel()
   },
-  setupCardsCarousel: function () {
-    const $owl = $("#cards-carousel").owlCarousel({
-      responsive: {
-        0: {
-          items: 3,
+  setupCardsCarousel: async function () {
+    const response = await fetch('https://daonghia2404.github.io/shark/data.json');
+    const data = await response.json();
+
+    const initialOwlCarousel = () => {
+      const mainOwls = document.querySelector('#cards-carousel')
+      const mainScroll = document.querySelector('.Cards-card-wrapper-list')
+
+      mainOwls.innerHTML = ''
+      mainScroll.innerHTML = ''
+      let contentCard = ''
+
+      data.forEach((item, index) => {
+        contentCard += `
+        <div class="Cards-card-wrapper-item"> 
+          <div class="Cards-card-wrapper-item-image"> <img src="${item.image}" alt=""></div>
+          <div class="Cards-card-wrapper-item-title">${item.title}s</div>
+        </div>
+        `
+      })
+
+      mainOwls.innerHTML = contentCard
+      mainScroll.innerHTML = contentCard
+
+      const $owl = $("#cards-carousel").owlCarousel({
+        responsive: {
+          0: {
+            items: 3,
+          },
         },
-      },
-      loop: true,
-      autoplay: true,
-      autoplayTimeout: 4000,
-      autoplayHoverPause: true,
-      smartSpeed: 300,
-      lazyLoad: true,
-      dots: false,
-      nav: true,
-      navText: ['<img src="./assets/icons/icon-angle-left.svg" alt="" />', '<img src="./assets/icons/icon-angle-right.svg" alt="" />'],
-      margin: 20,
-    });
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        smartSpeed: 300,
+        lazyLoad: true,
+        dots: false,
+        nav: true,
+        navText: ['<img src="./assets/icons/icon-angle-left.svg" alt="" />', '<img src="./assets/icons/icon-angle-right.svg" alt="" />'],
+        margin: 20,
+      });
+    }
+
+    initialOwlCarousel()
   },
 }
 
