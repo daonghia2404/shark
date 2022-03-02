@@ -1,26 +1,33 @@
 window.onload = () => {
   owlCarousel.init()
+  nav.init()
   // countUpConfig.init()
   // lazyLoading.init()
   // header.init()
 }
 
-const loading = {
-  init: function () {
-    this.configLoading()
+const nav = {
+  init: function() {
+    this.menuMobile()
   },
-  configLoading: function () {
-    
-  }
-}
+  menuMobile: function() {
+    const main = document.querySelector('.Header')
+    const overlay = main.querySelector('.Header-overlay')
+    const openBtn = document.querySelector('.Header-menu-btn')
+    const closeBtn = main.querySelector('.Header-wrapper-close')
 
-const lazyLoading = {
-  init: function () {
-    this.config()
+    openBtn.addEventListener('click', () => {
+      main.classList.add('active')
+    })
+
+    closeBtn.addEventListener('click', () => {
+      main.classList.remove('active')
+    })
+
+    overlay.addEventListener('click', () => {
+      main.classList.remove('active')
+    })
   },
-  config: function () {
-    const lazyLoadInstance = new LazyLoad({});
-  }
 }
 
 const owlCarousel = {
@@ -28,7 +35,7 @@ const owlCarousel = {
     this.setupCardsCarousel()
   },
   setupCardsCarousel: async function () {
-    const response = await fetch('https://daonghia2404.github.io/shark/data.json');
+    const response = await fetch('../../data.json');
     const data = await response.json();
 
     const initialOwlCarousel = () => {
