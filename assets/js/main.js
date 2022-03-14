@@ -35,7 +35,7 @@ const owlCarousel = {
     this.setupCardsCarousel()
   },
   setupCardsCarousel: async function () {
-    const response = await fetch('../../data.json');
+    const response = await fetch('https://daonghia2404.github.io/shark/data.json');
     const data = await response.json();
 
     const initialOwlCarousel = () => {
